@@ -7,7 +7,7 @@ public class ClienteUDP {
         Scanner scan = new Scanner(System.in);
 
         InetAddress destino = InetAddress.getLocalHost();
-        int port = 12345; //puerto al que enviar el mensaje, el del servidor
+        int port = 1234; //puerto al que enviar el mensaje, el del servidor
         DatagramSocket socket = new DatagramSocket(34567); //Puerto local, el del cliente
         String texto = "";
         do {
@@ -31,7 +31,9 @@ public class ClienteUDP {
             System.out.println("Esperando al datagrama...");
             DatagramPacket paqueteRecibir = new DatagramPacket(bufer, bufer.length);
             socket.receive(paqueteRecibir); //recibiendo datagrama
-            System.out.println(paqueteRecibir);
+            System.out.println("Recibido datagrama:");
+            String mensajeRecibido = new String(paqueteRecibir.getData(), 0, paqueteRecibir.getLength(), StandardCharsets.UTF_8);
+            System.out.println(mensajeRecibido);
 
         }while(!texto.equals("*"));
         socket.close();
